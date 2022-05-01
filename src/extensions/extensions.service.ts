@@ -16,6 +16,11 @@ export class ExtensionsService {
     }
     */
 
+
+    /**
+    * Returns a promise containing all rows from Extensions table.
+    * @return {Promise<any[]>} array of rows from Extensions table.
+    */
     async getAllExtensions(): Promise<any[]> {
         return await this.prisma.extensions.findMany({
             include: {
@@ -30,6 +35,11 @@ export class ExtensionsService {
         });
     }
 
+    /**
+    * Returns a promise containing the row with the id specified as parameter.
+    * @param {string} id of the row
+    * @return {Promise<any[]>} array of rows from Extensions table.
+    */
     async getExtensionById(id: string): Promise<any> {
         return await this.prisma.extensions.findUnique({
             include: {
