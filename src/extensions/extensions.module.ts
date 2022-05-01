@@ -1,8 +1,12 @@
 import { Module } from "@nestjs/common";
+import { ExtensionsController } from "./extensions.controller";
+import { ExtensionsService } from "./extensions.service";
 
 @Module({
-    imports: []
+    controllers: [ExtensionsController],
+    providers: [ExtensionsService]
+
 })
-class ExtensionsModule {
+export class ExtensionsModule {
 
 }
