@@ -1,6 +1,9 @@
 # botson_api
-The official API of the BotsOn platform made by @5CYTH3 & @Nirbose.
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
 
+The official API of the BotsOn platform made by @5CYTH3 & @Nirbose.
 ## Install & Contribute
 To contribute to the project, just fork the project, clone your repository and run those few commands :
 
