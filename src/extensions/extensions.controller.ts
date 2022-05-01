@@ -1,6 +1,5 @@
-import { Body, Controller, Get, Param, ParseIntPipe } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { ExtensionsService } from "./extensions.service";
-import { ExtensionsDto } from "./dto/extensions.dto";
 
 @Controller('extensions')
 export class ExtensionsController {
