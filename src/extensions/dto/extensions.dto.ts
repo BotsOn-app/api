@@ -1,10 +1,10 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class ChangesDto {
-    changes_id: number
+    changes_id: number;
     title: string;
     content: string;
-    version: number;
+    version: string;
 }
 
 class BannerDto {

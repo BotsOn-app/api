@@ -1,11 +1,11 @@
-import { Injectable } from "@nestjs/common";
-import { create } from "domain";
-import { PrismaService } from "src/prisma/prisma.service";
-import { ExtensionsDto } from "./dto/extensions.dto";
+import { Injectable } from '@nestjs/common';
+import { create } from 'domain';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { ChangesDto, ExtensionsDto } from './dto/extensions.dto';
 
 @Injectable({})
 export class ExtensionsService {
-    constructor(private prisma: PrismaService) { }
+    constructor(private prisma: PrismaService) {}
 
     async createExtension(createExtensionDto: ExtensionsDto) {
         try {
@@ -14,10 +14,10 @@ export class ExtensionsService {
                     author: {
                         create: {
                             name: createExtensionDto.author.name,
-                            avatarUrl: createExtensionDto.author.avatarUrl
-                        }
+                            avatarUrl: createExtensionDto.author.avatarUrl,
+                        },
                     },
-                    version: "1.0.0",
+                    version: '1.0.0',
                     downloads: 0,
                     data: {
                         create: {
@@ -26,30 +26,31 @@ export class ExtensionsService {
                             description: createExtensionDto.data.description,
                             changes: {
                                 create: {
-                                    title: "Initial Commit",
-                                    content: "First upload of the extension newly created!",
-                                    version: "1.0.0",
-                                }
+                                    title: 'Initial Commit',
+                                    content:
+                                        'First upload of the extension newly created!',
+                                    version: '1.0.0',
+                                },
                             },
                             banner: {
                                 create: {
                                     name: createExtensionDto.data.banner.name,
-                                    url: createExtensionDto.data.banner.url
-                                }
+                                    url: createExtensionDto.data.banner.url,
+                                },
                             },
-                        }
-                    }
-                }
-            })
+                        },
+                    },
+                },
+            });
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     }
 
     /**
-    * Returns a promise containing all rows from Extensions table.
-    * @return {Promise<any[]>} array of rows from Extensions table.
-    */
+     * Returns a promise containing all rows from Extensions table.
+     * @return {Promise<any[]>} array of rows from Extensions table.
+     */
     async getAllExtensions(): Promise<any[]> {
         return await this.prisma.extensions.findMany({
             include: {
@@ -57,18 +58,18 @@ export class ExtensionsService {
                 data: {
                     include: {
                         banner: true,
-                        changes: true
-                    }
-                }
-            }
+                        changes: true,
+                    },
+                },
+            },
         });
     }
 
     /**
-    * Returns a promise containing the row with the id specified as parameter.
-    * @param {string} id of the row
-    * @return {Promise<any[]>} array of rows from Extensions table.
-    */
+     * Returns a promise containing the row with the id specified as parameter.
+     * @param {string} id of the row
+     * @return {Promise<any[]>} array of rows from Extensions table.
+     */
     async getExtensionById(id: string): Promise<any> {
         return await this.prisma.extensions.findUnique({
             include: {
@@ -76,13 +77,30 @@ export class ExtensionsService {
                 data: {
                     include: {
                         banner: true,
-                        changes: true
-                    }
-                }
+                        changes: true,
+                    },
+                },
             },
             where: {
-                id: parseInt(id)
-            }
-        })
+                id: Number(id),
+            },
+        });
+    }
+
+    async addChanges(id: string, createChangesDto: ChangesDto) {
+        try {
+            const changes = await this.prisma.changes.update({
+                where: {
+                    id: Number(id),
+                },
+                data: {
+                    title: createChangesDto.title,
+                    content: createChangesDto.content,
+                    version: createChangesDto.version,
+                },
+            });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
