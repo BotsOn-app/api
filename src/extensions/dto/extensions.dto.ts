@@ -10,7 +10,7 @@ export class ChangesDto {
 class BannerDto {
     banner_id: number;
     url: string;
-    name: string; // "bg-{id}.png"
+    name: string;
 }
 
 class AuthorDto {
@@ -29,17 +29,8 @@ class DataDto {
 }
 
 export class ExtensionsDto {
-    id: number;
-
-    @IsNotEmpty()
     author: AuthorDto;
-
-    @IsNotEmpty()
     version: number;
-
-    @IsNotEmpty()
     downloads: number;
-
-    @IsNotEmpty()
     data: DataDto;
 }

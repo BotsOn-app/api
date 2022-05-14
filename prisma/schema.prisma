@@ -36,7 +36,6 @@ model Banner {
 model Data {
   id          Int          @id @default(autoincrement())
   banner      Banner       @relation(fields: [bannerId], references: [id])
-  bannerName  String       @db.VarChar(255)
   Extensions  Extensions[]
   name        String       @db.VarChar(50)
   description String
@@ -46,14 +45,13 @@ model Data {
 }
 
 model Extensions {
-  id             Int    @id @default(autoincrement())
-  author         Author @relation(fields: [authorId], references: [id])
-  authorId       Int
-  version        String @db.VarChar(5)
-  downloads      Int
-  data           Data   @relation(fields: [dataId], references: [id])
-  dataBannerName String @db.VarChar(255)
-  dataId         Int
+  id        Int    @id @default(autoincrement())
+  author    Author @relation(fields: [authorId], references: [id])
+  authorId  Int
+  version   String @db.VarChar(5)
+  downloads Int
+  data      Data   @relation(fields: [dataId], references: [id])
+  dataId    Int
 }
 
 model Test {

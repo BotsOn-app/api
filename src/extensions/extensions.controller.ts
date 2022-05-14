@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { ExtensionsDto } from "./dto/extensions.dto";
 import { ExtensionsService } from "./extensions.service";
 
 @Controller('extensions')
@@ -24,11 +25,9 @@ export class ExtensionsController {
         return this.extensionsService.getExtensionById(params)
     }
 
-    /*
     @Post()
-    async createExtension() {
-        return this.extensionsService.createExtension()
+    async createExtension(@Body() createExtensionDto: ExtensionsDto) {
+        return this.extensionsService.createExtension(createExtensionDto)
     }
-    */
 
 }
