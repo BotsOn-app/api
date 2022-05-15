@@ -1,16 +1,16 @@
-import { IsEmail, IsNotEmpty } from "class-validator";
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class ChangesDto {
-    changes_id: number
+    changes_id: number;
     title: string;
     content: string;
-    version: number;
+    version: string;
 }
 
 class BannerDto {
     banner_id: number;
     url: string;
-    name: string; // "bg-{id}.png"
+    name: string;
 }
 
 class AuthorDto {
@@ -29,17 +29,8 @@ class DataDto {
 }
 
 export class ExtensionsDto {
-    id: number;
-
-    @IsNotEmpty()
     author: AuthorDto;
-
-    @IsNotEmpty()
     version: number;
-
-    @IsNotEmpty()
     downloads: number;
-
-    @IsNotEmpty()
     data: DataDto;
 }
