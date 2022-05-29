@@ -1,13 +1,22 @@
 FROM node:14-alpine3.10
 
-WORKDIR "/app"
+WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install --quiet
+
+COPY prisma .
+
+RUN npx prisma generate
 
 COPY . .
 
-EXPOSE 3000
+RUN npm run build
 
-CMD ["npm", "run", "start:prod"]
+EXPOSE 8000
+
+WORKDIR /app
+
+CMD [ "npm", "run", "start:prod" ]
+
