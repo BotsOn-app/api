@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { create } from 'domain';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ChangesDto, ExtensionsDto } from './dto/extensions.dto';
 
@@ -84,6 +83,12 @@ export class ExtensionsService {
             where: {
                 id: Number(id),
             },
+        });
+    }
+
+    async getExtensionCount(): Promise<any> {
+        return await this.prisma.extensions.aggregate({
+            _count: true,
         });
     }
 

@@ -22,6 +22,11 @@ export class ExtensionsController {
     async getExtension(@Param('id') params: string): Promise<any> {
         return this.extensionsService.getExtensionById(params);
     }
+    /* Just a stupid idea, I think we can just do len() of the req body so..
+    @Get('count')
+    async getExtensionCount(): Promise<any> {
+        return this.extensionsService.getExtensionCount();
+    }*/
 
     @Post()
     async createExtension(@Body() createExtensionDto: ExtensionsDto) {
