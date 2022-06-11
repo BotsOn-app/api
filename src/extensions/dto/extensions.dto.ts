@@ -1,5 +1,3 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
-
 export class ChangesDto {
     changes_id: number;
     title: string;
