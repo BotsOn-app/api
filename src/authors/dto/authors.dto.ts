@@ -1,4 +1,4 @@
-class AuthorDto {
+export class AuthorDto {
     author_id: number;
     name: string;
     avatarUrl: string;
