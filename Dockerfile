@@ -1,10 +1,10 @@
-FROM node:14-alpine3.10
+FROM node:18.8.0-alpine
 
 WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install --quiet
+RUN npm install
 
 COPY prisma .
 
