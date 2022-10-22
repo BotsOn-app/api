@@ -59,3 +59,12 @@ model Test {
   id   Int    @id @default(autoincrement())
   text String @db.VarChar(55)
 }
+
+model Auth {
+  id                Int    @id @default(autoincrement())
+  publicAccessToken String @db.VarChar(55)
+  accessToken       String @db.VarChar(55)
+  refreshToken      String @db.VarChar(55)
+  expiresIn         BigInt
+  userId            String @db.VarChar(55)
+}
