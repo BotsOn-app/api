@@ -22,13 +22,12 @@ The project uses prisma. To connect prisma to your running database, you have to
 DATABASE_URL="postgresql://username:password@localhost:5432/mydb?schema=public"
 ```
 
-_(Just remember that you need to replace `username` `password` and `mydb` by the corresponding values)_
+_(Just remember that you need to replace `username`, `password` and `mydb` by the corresponding values)_
 
-## Endpoints
-
+## `Extension` Endpoints
 Here a described all the different endpoints that cover the API.
 
-#### Request
+#### GET Request
 
 `GET /api/extensions`
 
@@ -39,10 +38,9 @@ curl --request GET \
 ```
 
 #### What does it do?
-
 It returns an array of all extensions objects present in the database.
 
-#### Request
+#### POST Request
 
 `POST /api/extensions`
 
@@ -68,10 +66,9 @@ curl --request POST \
 ```
 
 #### What does it do?
-
 It creates a new extensions and stores it in the db. The extension is represented as JSON and stored in --data flag.
 
-#### Request
+#### GET Request
 
 `GET /api/extensions/:id`
 
@@ -82,5 +79,18 @@ curl --request GET \
 ```
 
 #### What does it do?
-
 Return the extension with the id precised in the URL as `:id`
+
+## `Authors` endpoint
+
+### PUT Request
+```bash
+curl --request GET \
+--url http://localhost:3000/api/authors/:id \
+--header 'Content-Type: application/json'
+```
+
+#### What does it do?
+Return the author with the precised id in the URL as `:id`
+
+###
