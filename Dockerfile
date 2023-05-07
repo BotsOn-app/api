@@ -2,17 +2,19 @@ FROM node:18.8.0-alpine
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+RUN npm i -g pnpm
 
-RUN npm install
+COPY package*.json pnpm-lock.yaml ./
+
+RUN pnpm install
 
 COPY prisma .
 
 COPY . .
 
-RUN npx prisma generate
+RUN pnpx prisma generate
 
 EXPOSE 8000
 
-CMD [ "npm", "run", "start:dev" ]
+CMD [ "pnpm", "run", "start:dev" ]
 
