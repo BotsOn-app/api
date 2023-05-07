@@ -1,6 +1,6 @@
 FROM node:18.8.0-alpine
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
@@ -8,15 +8,11 @@ RUN npm install
 
 COPY prisma .
 
-RUN npx prisma generate
-
 COPY . .
 
-RUN npm run build
+RUN npx prisma generate
 
 EXPOSE 8000
-
-WORKDIR /app
 
 CMD [ "npm", "run", "start:dev" ]
 

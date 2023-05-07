@@ -1,6 +1,17 @@
 # docker-compose --project-name botson --env-file .env up -d
-version: '3.8'
+version: '3.2'
 services:
+  db:
+    container_name: postgres
+    hostname: postgres
+    image: postgres
+    restart: always
+    ports:
+      - 5432:5432
+    env_file:
+      - db.env
+    volumes:
+      - postgres:/var/lib/postrgesql/data
   api:
     container_name: botson_api
     build:
@@ -14,17 +25,5 @@ services:
       - db
     volumes:
       - .:/app
-  db:
-    container_name: postgres
-    hostname: postgres
-    image: postgres
-    restart: always
-    ports:
-      - '5432:5432'
-    env_file:
-      - db.env
-    volumes:
-      - postgres:/var/lib/postrgesql/data
 volumes:
   postgres:
-    name: 'botson_db'
