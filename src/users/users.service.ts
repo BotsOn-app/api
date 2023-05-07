@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { AuthorDto } from './dto/authors.dto';
+import { UsersDto } from './dto/users.dto';
 
 @Injectable()
-export class AuthorsService {
+export class UsersService {
     constructor(private prisma: PrismaService) {}
 
     async getAuthor(id: string): Promise<any> {
-        return await this.prisma.author.findUnique({
+        return await this.prisma.user.findUnique({
             include: {
                 Extensions: true,
             },
@@ -17,12 +17,12 @@ export class AuthorsService {
         });
     }
 
-    async addAuthor(createAuthorDto: AuthorDto): Promise<any> {
+    async addAuthor(createAuthorDto: UsersDto): Promise<any> {
         try {
-            const author = await this.prisma.author.create({
+            return await this.prisma.user.create({
                 data: {
                     name: createAuthorDto.name,
-                    avatarUrl: createAuthorDto.avatarUrl,
+                    avatarUrl: createAuthorDto.avatar_url,
                 },
             });
         } catch (e) {

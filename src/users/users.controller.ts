@@ -1,10 +1,10 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { AuthorsService } from './authors.service';
-import { AuthorDto } from './dto/authors.dto';
+import { UsersService } from './users.service';
+import { UsersDto } from './dto/users.dto';
 
 @Controller('authors')
-export class AuthorsController {
-    constructor(private authorsService: AuthorsService) {}
+export class UsersController {
+    constructor(private authorsService: UsersService) {}
 
     @Get(':id')
     async getAuthor(@Param('id') params: string): Promise<any> {
@@ -12,7 +12,7 @@ export class AuthorsController {
     }
 
     @Post()
-    async addAuthor(@Body() authorDto: AuthorDto) {
+    async addAuthor(@Body() authorDto: UsersDto) {
         return this.authorsService.addAuthor(authorDto);
     }
 }

@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { ChangesDto, ExtensionsDto } from './dto/extensions.dto';
 import { ExtensionsService } from './extensions.service';
 
+
 @Controller('extensions')
 export class ExtensionsController {
     constructor(private extensionsService: ExtensionsService) {}
@@ -33,6 +34,7 @@ export class ExtensionsController {
         return this.extensionsService.createExtension(createExtensionDto);
     }
 
+    /*
     @Put(':id')
     async addChanges(
         @Param('id') params: string,
@@ -40,4 +42,5 @@ export class ExtensionsController {
     ) {
         return this.extensionsService.addChanges(params, createChangesDto);
     }
+    */
 }
