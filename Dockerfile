@@ -18,5 +18,5 @@ EXPOSE 8000
 
 WORKDIR /app
 
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "npm", "run", "start:dev" ]
 
