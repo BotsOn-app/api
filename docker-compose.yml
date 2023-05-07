@@ -1,16 +1,30 @@
+# docker-compose --project-name botson --env-file .env up -d
 version: '3.8'
 services:
-    db:
-        image: postgres:11-alpine
-        restart: always
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_DB: postgres
-        ports:
-            - ${DB_PORT:-5432}:5432
-        volumes:
-            - db:/var/lib/postgresql/data
+  api:
+    container_name: botson_api
+    build:
+      context: 'botson_api'
+      dockerfile: 'Dockerfile'
+    ports:
+      - 8000:8000
+    env_file:
+      - ./botson_api/.env
+    depends_on:
+      - db
+    volumes:
+      - ./botson_api:/app
+  db:
+    container_name: postgres
+    hostname: postgres
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    env_file:
+      - ./botson_api/db.env
+    volumes:
+      - postgres:/var/lib/postrgesql/data
 volumes:
-    db:
-        driver: local
+  postgres:
+    name: 'botson_db'

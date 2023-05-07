@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider      = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -10,16 +10,16 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Changes {
-  id      Int    @id @default(autoincrement())
-  title   String @db.VarChar(255)
-  content String
-  version String @db.VarChar(5)
-  Data    Data?  @relation(fields: [dataId], references: [id])
-  dataId  Int?
-}
-
-model Author {
+// model Changes {
+//  id           Int         @id @default(autoincrement())
+//  title        String      @db.VarChar(255)
+//  content      String
+//  version      String      @db.VarChar(5)
+//  dataId       Int?
+//  Extensions   Extensions? @relation(fields: [extensionsId], references: [id])
+//  extensionsId Int?
+// }
+model User {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(128)
   avatarUrl  String       @db.VarChar(255)
@@ -30,28 +30,19 @@ model Banner {
   id   Int    @id @default(autoincrement())
   url  String @db.VarChar(255)
   name String @db.VarChar(255)
-  Data Data[]
-}
-
-model Data {
-  id          Int          @id @default(autoincrement())
-  banner      Banner       @relation(fields: [bannerId], references: [id])
-  Extensions  Extensions[]
-  name        String       @db.VarChar(50)
-  description String
-  verified    Boolean
-  changes     Changes[]
-  bannerId    Int
 }
 
 model Extensions {
-  id        Int    @id @default(autoincrement())
-  author    Author @relation(fields: [authorId], references: [id])
-  authorId  Int
-  version   String @db.VarChar(5)
-  downloads Int
-  data      Data   @relation(fields: [dataId], references: [id])
-  dataId    Int
+  id          Int     @id @default(autoincrement())
+  author      User    @relation(fields: [authorId], references: [id])
+  authorId    Int
+  version     String  @db.VarChar(5)
+  downloads   Int
+  banner      Json
+  name        String  @db.VarChar(50)
+  description String
+  verified    Boolean
+  // changes     Changes[] OU ALORS Json[]
 }
 
 model Test {
