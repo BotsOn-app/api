@@ -33,6 +33,7 @@ export class ExtensionsController {
         return this.extensionsService.createExtension(createExtensionDto);
     }
 
+    /*
     @Put(':id')
     async addChanges(
         @Param('id') params: string,
@@ -40,4 +41,5 @@ export class ExtensionsController {
     ) {
         return this.extensionsService.addChanges(params, createChangesDto);
     }
+    */
 }

@@ -18,25 +18,13 @@ export class ExtensionsService {
                     },
                     version: '1.0.0',
                     downloads: 0,
-                    data: {
+                    verified: createExtensionDto.data.verified,
+                    name: createExtensionDto.data.name,
+                    description: createExtensionDto.data.description,
+                    banner: {
                         create: {
-                            verified: createExtensionDto.data.verified,
-                            name: createExtensionDto.data.name,
-                            description: createExtensionDto.data.description,
-                            changes: {
-                                create: {
-                                    title: 'Initial Commit',
-                                    content:
-                                        'First upload of the extension newly created!',
-                                    version: '1.0.0',
-                                },
-                            },
-                            banner: {
-                                create: {
-                                    name: createExtensionDto.data.banner.name,
-                                    url: createExtensionDto.data.banner.url,
-                                },
-                            },
+                            name: createExtensionDto.data.banner.name,
+                            url: createExtensionDto.data.banner.url,
                         },
                     },
                 },
@@ -54,12 +42,6 @@ export class ExtensionsService {
         return await this.prisma.extensions.findMany({
             include: {
                 author: true,
-                data: {
-                    include: {
-                        banner: true,
-                        changes: true,
-                    },
-                },
             },
         });
     }
@@ -73,12 +55,6 @@ export class ExtensionsService {
         return await this.prisma.extensions.findUnique({
             include: {
                 author: true,
-                data: {
-                    include: {
-                        banner: true,
-                        changes: true,
-                    },
-                },
             },
             where: {
                 id: Number(id),
@@ -91,7 +67,7 @@ export class ExtensionsService {
             _count: true,
         });
     }
-
+    /*
     async addChanges(id: string, createChangesDto: ChangesDto) {
         try {
             const changes = await this.prisma.changes.update({
@@ -107,5 +83,5 @@ export class ExtensionsService {
         } catch (e) {
             console.log(e);
         }
-    }
+    }*/
 }
