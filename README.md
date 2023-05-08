@@ -7,90 +7,27 @@
 The official API of the BotsOn platform made by @5CYTH3 & @Nirbose.
 
 ## Install & Contribute
-
-To contribute to the project, just fork the project, clone your repository and run those few commands :
-
-```bash
-cd myrepo/
-npm i
-npm run start:dev
-```
-
 The project uses prisma. To connect prisma to your running database, you have to add a DATABASE_URL key in a .env file :
 
 ```bash
 DATABASE_URL="postgresql://username:password@localhost:5432/mydb?schema=public"
 ```
+_(Just remember that you need to replace `username`, `password` and `mydb` by the corresponding values. And IF YOU ARE USING DOCKER TO CONTAINERIZE BOTH THE APP AND THE DATABASE, REPLACE `localhost` BY `postgres`)_
+### With Docker
 
-_(Just remember that you need to replace `username`, `password` and `mydb` by the corresponding values)_
-
-## `Extension` Endpoints
-Here a described all the different endpoints that cover the API.
-
-#### GET Request
-
-`GET /api/extensions`
-
+If you are willing to use docker for this project, you need docker and docker-compose installed. 
+In the project directory, run :
 ```bash
-curl --request GET \
-  --url http://localhost:3000/api/extensions \
-  --header 'Content-Type: application/json'
+pnpm i
+docker compose up -d
 ```
+Docker will retrieve all dependencies and the database automatically.
+You can also develop inside a container, which is **recommended** to avoid any "it works on my machine" and to work on a clean environment. To do so, just __attach your favourite IDE to the running container__.
 
-#### What does it do?
-It returns an array of all extensions objects present in the database.
-
-#### POST Request
-
-`POST /api/extensions`
-
+### Without Docker
+If you are willing to contribute to the project by forking it and cloning it on your local machine, just run :
 ```bash
-curl --request POST \
-  --url http://localhost:3000/api/extensions \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "author": {
-      "name": "NAME",
-      "avatarUrl": "URL"
-    },
-    "data": {
-      "banner": {
-        "url": "URL",
-        "name": "NAME"
-      },
-      "name": "NAME",
-      "description": "DESCRIPTION",
-      "verified": false
-    }
-  }'
+pnpm i
+pnpm run start:dev
 ```
-
-#### What does it do?
-It creates a new extensions and stores it in the db. The extension is represented as JSON and stored in --data flag.
-
-#### GET Request
-
-`GET /api/extensions/:id`
-
-```bash
-curl --request GET \
-  --url http://localhost:3000/api/extensions/:id \
-  --header 'Content-Type: application/json'
-```
-
-#### What does it do?
-Return the extension with the id precised in the URL as `:id`
-
-## `Authors` endpoint
-
-### PUT Request
-```bash
-curl --request GET \
---url http://localhost:3000/api/authors/:id \
---header 'Content-Type: application/json'
-```
-
-#### What does it do?
-Return the author with the precised id in the URL as `:id`
-
-###
+(you will need PostgresSQL running on your machine, either locally or with a docker container).
