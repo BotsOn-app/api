@@ -8,51 +8,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// model Changes {
-//  id           Int         @id @default(autoincrement())
-//  title        String      @db.VarChar(255)
-//  content      String
-//  version      String      @db.VarChar(5)
-//  dataId       Int?
-//  Extensions   Extensions? @relation(fields: [extensionsId], references: [id])
-//  extensionsId Int?
-// }
-model User {
-  id         Int          @id @default(autoincrement())
-  name       String       @db.VarChar(128)
-  avatarUrl  String       @db.VarChar(255)
+model Users {
+  id         String       @id @default(uuid())
+  name       String
+  avatarUrl  String
   Extensions Extensions[]
 }
 
-model Banner {
-  id   Int    @id @default(autoincrement())
-  url  String @db.VarChar(255)
-  name String @db.VarChar(255)
-}
-
 model Extensions {
-  id          Int     @id @default(autoincrement())
-  author      User    @relation(fields: [authorId], references: [id])
-  authorId    Int
+  id          String  @id @default(cuid())
+  author      Users   @relation(fields: [authorId], references: [id])
+  authorId    String
   version     String  @db.VarChar(5)
   downloads   Int
-  banner      Json
+  bannerUrl   String
   name        String  @db.VarChar(50)
   description String
   verified    Boolean
-  // changes     Changes[] OU ALORS Json[]
-}
-
-model Test {
-  id   Int    @id @default(autoincrement())
-  text String @db.VarChar(55)
-}
-
-model Auth {
-  id                Int    @id @default(autoincrement())
-  publicAccessToken String @db.VarChar(55)
-  accessToken       String @db.VarChar(55)
-  refreshToken      String @db.VarChar(55)
-  expiresIn         BigInt
-  userId            String @db.VarChar(55)
 }
