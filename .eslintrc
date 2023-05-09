@@ -1,0 +1,21 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "rules": {
+    "no-console": 2,
+    "semi": "off",
+    "@typescript-eslint/semi": "error",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ]
+  }
+}
