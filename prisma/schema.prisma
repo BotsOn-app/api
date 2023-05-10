@@ -12,12 +12,12 @@ model Users {
   id         String       @id @default(uuid())
   name       String
   avatarUrl  String
-  Extensions Extensions[]
+  Extensions Extensions[] @relation("extension")
 }
 
 model Extensions {
   id          String  @id @default(cuid())
-  author      Users   @relation(fields: [authorId], references: [id])
+  author      Users   @relation("extension", fields: [authorId], references: [id])
   authorId    String
   version     String  @db.VarChar(5)
   downloads   Int
