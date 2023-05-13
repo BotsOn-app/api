@@ -19,4 +19,4 @@ COPY --chown=node:node --from=builder /usr/src/app/dist /usr/src/app/dist
 RUN npm run generate
 
 EXPOSE 8000
-CMD [ "npm", "start:prod" ]
+CMD [ "npm", "run", "start:prod" ]
