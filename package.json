@@ -10,7 +10,8 @@
     "migrate": "prisma migrate deploy",
     "build": "nest build",
     "start": "nest start",
-    "start:dev": "nest start --watch"
+    "start:dev": "nest start --watch",
+    "start:prod": "npm run migrate && node dist/main.js"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
