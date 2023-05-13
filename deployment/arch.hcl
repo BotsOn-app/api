@@ -71,7 +71,7 @@ job "botsonapp" {
       driver = "docker"
 
       env {
-        DATABASE_URL = "postgresql://root:supersecret@${NOMAD_UPSTREAM_ADDR_count_api}/api?schema=public"
+        DATABASE_URL = "postgresql://root:supersecret@localhost:5432/api?schema=public"
       }
 
       config {
