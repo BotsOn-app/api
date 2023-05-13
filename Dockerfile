@@ -6,7 +6,7 @@ RUN npm ci --quiet
 
 COPY prisma .
 COPY . .
-RUN npx prisma generate
+RUN npm run generate
 RUN npm run build
 
 FROM node:18.8.0-alpine
