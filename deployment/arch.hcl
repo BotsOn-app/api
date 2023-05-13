@@ -10,15 +10,24 @@ job "botsonapp" {
   group "database" {
     count = 1
 
+    network {
+      mode = "bridge"
+    }
+
+    service {
+      name = "database"
+      port = "5432"
+
+      connect {
+        sidecar_service {}
+      }
+    }
+
     task "postgres" {
       driver = "docker"
 
       config {
         image = "postgres"
-        network_mode = "host"
-        port_map {
-          db = 5432
-        }
       }
 
       env {
@@ -29,22 +38,44 @@ job "botsonapp" {
       resources {
         cpu = 1000
         memory = 1024
-        network {
-          port  "db"  {
-            static = 5432
+      }
+    }
+  }
+  group "services" {
+    network {
+      mode = "bridge"
+
+      port "http" {
+        static = 8000
+        to     = 8000
+      }
+    }
+
+    service {
+      name = "api"
+      port = "http"
+
+      connect {
+        sidecar_service {
+          proxy {
+            upstreams {
+              destination_name = "database"
+              local_bind_port  = 5432
+            }
           }
         }
       }
+    }
 
-      service {
-        name = "postgres"
-        port = "db"
-        check {
-          name     = "alive"
-          type     = "tcp"
-          interval = "10s"
-          timeout  = "2s"
-        }
+    task "api" {
+      driver = "docker"
+
+      env {
+        DATABASE_URL = "postgresql://root:supersecret@${NOMAD_UPSTREAM_ADDR_count_api}/api?schema=public"
+      }
+
+      config {
+        image = "api:local"
       }
     }
   }

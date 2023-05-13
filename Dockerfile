@@ -16,5 +16,5 @@ RUN pnpx prisma generate
 
 EXPOSE 8000
 
-CMD [ "pnpm", "run", "start:dev" ]
+CMD [ "pnpm", "run", "start:ci" ]
 
