@@ -13,6 +13,8 @@ jobs:
         run: docker build . --tag api:latest
   deploy:
     runs-on: [ self-hosted, linux ]
+    needs:
+      - build
     steps:
       - uses: actions/checkout@v3
       - name: "Deploy to dev env"
