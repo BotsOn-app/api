@@ -5,7 +5,7 @@ COPY package*.json ./
 RUN npm ci --quiet
 
 COPY prisma ./prisma
-COPY src ./src
+COPY . .
 RUN npm run generate
 RUN npm run build
 
