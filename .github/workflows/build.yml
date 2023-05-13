@@ -9,10 +9,11 @@ on:
     branches:
       - main
       - dev
+
 jobs:
   build:
     runs-on: [self-hosted, linux]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: "Build image"
-        run: docker build . --tag api:local
+        run: docker build .
