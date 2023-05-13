@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: "Build image"
-        run: docker build . --tag api:latest
+        run: docker build . --tag api:local
   deploy:
     runs-on: [ self-hosted, linux ]
     needs:
