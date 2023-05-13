@@ -17,6 +17,7 @@ RUN npm ci --only=production --quiet
 COPY --chown=node:node --from=builder /usr/src/app/prisma /usr/src/app/prisma
 COPY --chown=node:node --from=builder /usr/src/app/dist /usr/src/app/dist
 RUN npm run generate
+RUN npm run migrate
 
 EXPOSE 8000
 CMD [ "node", "dist/main.js" ]
