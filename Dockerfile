@@ -14,9 +14,9 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 RUN npm ci --only=production --quiet
-RUN npm run generate
 COPY --chown=node:node --from=builder /usr/src/app/prisma /usr/src/app/prisma
 COPY --chown=node:node --from=builder /usr/src/app/dist /usr/src/app/dist
+RUN npm run generate
 
 EXPOSE 8000
 CMD [ "node", "dist/main.js" ]
