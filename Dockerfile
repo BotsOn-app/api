@@ -14,6 +14,7 @@ WORKDIR /usr/src/app
 
 COPY package*.json ./
 RUN npm ci --only=production --quiet
+RUN npx prisma generate
 COPY --chown=node:node --from=builder /usr/src/app/prisma /usr/src/app/prisma
 COPY --chown=node:node --from=builder /usr/src/app/src /usr/src/app/src
 
