@@ -75,7 +75,7 @@ job "botsonapp" {
       }
 
       config {
-        image = "api:latest"
+        image = "api:local"
       }
     }
   }
