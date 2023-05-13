@@ -11,7 +11,7 @@ on:
       - dev
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: "nomad"
     steps:
       - uses: actions/checkout@v2
       - name: "Build image"
