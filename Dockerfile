@@ -1,22 +1,26 @@
 FROM node:18.8.0-alpine as builder
+RUN npm install -g pnpm
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm ci --quiet
+COPY pnpm-lock.yaml ./
+RUN pnpm install
 
 COPY prisma ./prisma
 COPY . .
-RUN npm run generate
-RUN npm run build
+RUN pnpm run generate
+RUN pnpm run build
 
 FROM node:18.8.0-alpine
+RUN npm install -g pnpm
 WORKDIR /usr/src/app
 
 COPY package*.json ./
-RUN npm ci --only=production --quiet
+COPY pnpm-lock.yaml ./
+RUN pnpm install
 COPY --chown=node:node --from=builder /usr/src/app/prisma /usr/src/app/prisma
 COPY --chown=node:node --from=builder /usr/src/app/dist /usr/src/app/dist
-RUN npm run generate
+RUN pnpm run generate
 
 EXPOSE 8000
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "pnpm", "run", "start:prod" ]

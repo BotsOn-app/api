@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersDto } from './dto/users.dto';
-import { Users } from '@prisma/client';
+import { Users } from '.prisma/client';
 import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('authors')
