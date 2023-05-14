@@ -1,9 +1,8 @@
-name: build
+name: dev
 on:
   push:
     branches:
       - dev
-      - ci-*
   pull_request:
     branches:
       - main
