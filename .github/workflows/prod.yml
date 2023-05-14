@@ -1,0 +1,21 @@
+name: prod
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted, linux]
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Build image"
+        run: docker build . --tag api:local
+  deploy:
+    runs-on: [ self-hosted, linux ]
+    needs:
+      - build
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Deploy to dev env"
+        run: nomad job run deployment/arch.hcl
