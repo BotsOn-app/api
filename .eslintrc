@@ -12,6 +12,7 @@
   "rules": {
     "no-console": 2,
     "semi": "off",
+    "quotes": ["error", "single"],
     "@typescript-eslint/semi": "error",
     "object-curly-spacing": [
       "error",
