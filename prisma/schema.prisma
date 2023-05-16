@@ -8,21 +8,34 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Users {
-  id         String       @id @default(uuid())
+model User {
+  id         String      @id @default(uuid())
   name       String
   avatarUrl  String
-  Extensions Extensions[] @relation("extension")
+  extensions Extension[] @relation("extension")
 }
 
-model Extensions {
-  id          String  @id @default(cuid())
-  author      Users   @relation("extension", fields: [authorId], references: [id])
+model Extension {
+  id          String    @id @default(cuid())
+  name        String    @db.VarChar(50)
+  description String
+  author      User      @relation("extension", fields: [authorId], references: [id])
   authorId    String
-  version     String  @db.VarChar(5)
+  versions    Version[] @relation("version")
   downloads   Int
   bannerUrl   String
-  name        String  @db.VarChar(50)
-  description String
   verified    Boolean
+  source      String
+}
+
+model Version {
+  semver       String
+  commit       String
+  active       Boolean
+  link         String?
+  checksum     String?
+  Extensions   Extension @relation("version", fields: [extensionsId], references: [id])
+  extensionsId String
+
+  @@id([semver, extensionsId])
 }

@@ -23,12 +23,12 @@ class DataDto {
     name: string;
     description: string;
     verified: boolean;
+    source: string;
     changes: ChangesDto[];
 }
 
 export class ExtensionsDto {
     author: AuthorDto;
     version: number;
-    downloads: number;
     data: DataDto;
 }

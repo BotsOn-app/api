@@ -11,6 +11,8 @@ services:
     volumes:
       - postgres:/var/lib/postrgesql/data
   api:
+    environment:
+      DATABASE_URL: "postgresql://postgres:postgres@db:5432/botson?schema=public"
     container_name: botson_api
     build:
       context: .
