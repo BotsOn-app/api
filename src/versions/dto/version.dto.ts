@@ -13,3 +13,21 @@ export class CreateVersionDto {
     })
     commit: string;
 }
+
+export class ActivateVersionDto {
+    @ApiProperty({
+        example: 'true',
+        description: 'Set a version to active'
+    })
+    active: boolean;
+
+    @ApiProperty({
+        description: 'link to the extension archive'
+    })
+    link: string;
+
+    @ApiProperty({
+        description: 'checksum of the archive'
+    })
+    checksum: string;
+}

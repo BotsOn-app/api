@@ -1,6 +1,6 @@
 job "botsonapp" {
   datacenters = ["dc1"]
-  type = "service"
+  type        = "service"
 
   update {
     stagger      = "30s"
@@ -31,17 +31,50 @@ job "botsonapp" {
       }
 
       env {
-        POSTGRES_USER="root"
+        POSTGRES_USER     = "root"
         POSTGRES_PASSWORD = "supersecret"
       }
 
       resources {
-        cpu = 1000
+        cpu    = 1000
         memory = 1024
       }
     }
   }
-  group "services" {
+  group "cdn" {
+    network {
+      mode = "bridge"
+
+      port "http" {
+        static = 9000
+        to     = 9000
+      }
+      port "console" {
+        static = 9001
+        to     = 9001
+      }
+    }
+
+    service {
+      name = "cdn"
+      port = "http"
+    }
+
+    task "cdn" {
+      driver = "docker"
+
+      env {
+        MINIO_ACCESS_KEY  = "miniominio"
+        MINIO_SECRET_KEY  = "miniominio13"
+        MINIO_REGION_NAME = "us-east-1"
+      }
+      config {
+        image   = "minio/minio"
+        command = "server --console-address ':9001' /data"
+      }
+    }
+  }
+  group "api" {
     network {
       mode = "bridge"
 

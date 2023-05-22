@@ -46,6 +46,7 @@ export class ExtensionsService {
         return this.prisma.extension.findUnique({
             include: {
                 author: true,
+                versions: true
             },
             where: {
                 id: id,

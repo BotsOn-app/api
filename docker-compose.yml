@@ -28,5 +28,18 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  minio:
+    image: minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio:/data
+    environment:
+      - MINIO_ACCESS_KEY=miniominio
+      - MINIO_SECRET_KEY=miniominio13
+      - MINIO_REGION_NAME=us-east-1
+    command: server --console-address ":9001" /data
 volumes:
   postgres:
+  minio:
