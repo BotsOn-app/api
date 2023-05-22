@@ -41,7 +41,39 @@ job "botsonapp" {
       }
     }
   }
+  group "queue" {
+    network {
+      mode = "bridge"
+
+      port "amqp" {
+        static = "5672"
+        to     = "5672"
+      }
+      port "management" {
+        static = "15672"
+        to     = "15672"
+      }
+    }
+    task "queue" {
+      driver = "docker"
+      
+      resources {
+        cpu    = 1000
+        memory = 2048
+      }
+
+      config {
+        image = "rabbitmq:3-management-alpine"
+      }
+    }
+  }
   group "cdn" {
+    volume "minio" {
+      type      = "host"
+      read_only = false
+      source    = "minio"
+    }
+
     network {
       mode = "bridge"
 
@@ -63,6 +95,18 @@ job "botsonapp" {
     task "cdn" {
       driver = "docker"
 
+      resources {
+        cpu    = 1000
+        memory = 2048
+      }
+
+      volume_mount {
+        volume      = "minio"
+        destination = "/data"
+        read_only   = false
+      }
+
+
       env {
         MINIO_ACCESS_KEY  = "miniominio"
         MINIO_SECRET_KEY  = "miniominio13"
@@ -70,7 +114,12 @@ job "botsonapp" {
       }
       config {
         image   = "minio/minio"
-        command = "server --console-address ':9001' /data"
+        command = "server"
+        args    = [
+          "--console-address",
+          ":9001",
+          "/data"
+        ]
       }
     }
   }
