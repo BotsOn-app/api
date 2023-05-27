@@ -8,8 +8,8 @@ export class UsersService {
     constructor(private readonly prisma: PrismaService) {
     }
 
-    async getAuthor(id: string): Promise<User> {
-        return this.prisma.user.findUniqueOrThrow({
+    async getAuthor(id: string): Promise<User | null> {
+        return this.prisma.user.findUnique({
             where: {
                 id: id,
             },
@@ -19,6 +19,7 @@ export class UsersService {
     async addAuthor(createAuthorDto: UsersDto): Promise<User> {
         return this.prisma.user.create({
             data: {
+                id: createAuthorDto.user_id,
                 name: createAuthorDto.name,
                 avatarUrl: createAuthorDto.avatar_url,
             },

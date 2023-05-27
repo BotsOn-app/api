@@ -2,7 +2,7 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { ExtensionsDto } from './dto/extensions.dto';
 import { ExtensionsService } from './extensions.service';
 import { CreateVersionDto } from '../versions/dto/version.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VersionEntity } from '../versions/entities/version.entity';
 import client, { Channel, connect, Connection, Message } from 'amqplib';
 import { ConfigService } from '@nestjs/config';
@@ -13,7 +13,6 @@ interface QueueConfig {
     host: string;
     port: string;
 }
-
 
 @Controller('extensions')
 export class ExtensionsController {

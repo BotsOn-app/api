@@ -56,7 +56,7 @@ job "botsonapp" {
     }
     task "queue" {
       driver = "docker"
-      
+
       resources {
         cpu    = 1000
         memory = 2048
@@ -128,8 +128,7 @@ job "botsonapp" {
       mode = "bridge"
 
       port "http" {
-        static = 8000
-        to     = 8000
+        to = 8000
       }
     }
 
@@ -137,6 +136,16 @@ job "botsonapp" {
       name = "api"
       port = "http"
 
+      tags = [
+        "traefik.enable=true",
+        "traefik.http.routers.botson-api.entrypoints=https",
+        "traefik.http.routers.botson-api.rule=Host(`botson.fr`)",
+        "traefik.http.routers.botson-api.tls=true",
+        "traefik.http.routers.botson-api.tls.certresolver=le-resolver",
+      ]
+
+    }
+    service {
       connect {
         sidecar_service {
           proxy {
