@@ -1,5 +1,5 @@
 export class UsersDto {
-    user_id: number;
+    user_id: string;
     name: string;
     avatar_url: string;
 }

@@ -1,17 +1,18 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UsersDto } from './dto/users.dto';
-import { Users } from '.prisma/client';
+import { User } from '.prisma/client';
 import { ApiResponse } from '@nestjs/swagger';
 
 @Controller('authors')
 export class UsersController {
-    constructor(private authorsService: UsersService) {}
+    constructor(private authorsService: UsersService) {
+    }
 
     @Get(':id')
     @ApiResponse({ status: 200, description: 'Author found' })
     @ApiResponse({ status: 404, description: 'Author not found' })
-    async getAuthor(@Param('id') params: string): Promise<Users | null> {
+    async getAuthor(@Param('id') params: string): Promise<User | null> {
         return this.authorsService.getAuthor(params);
     }
 
