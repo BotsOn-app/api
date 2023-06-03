@@ -9,11 +9,11 @@ export class ExtensionsService {
     constructor(private prisma: PrismaService) {
     }
 
-    async createExtension(createExtensionDto: ExtensionsDto): Promise<Extension> {
+    async createExtension(userID: string, createExtensionDto: ExtensionsDto): Promise<Extension> {
         return this.prisma.extension.create({
             data: {
                 bannerUrl: '',
-                authorId: '0',
+                authorId: userID,
                 downloads: 0,
                 verified: false,
                 name: createExtensionDto.name,
@@ -42,7 +42,7 @@ export class ExtensionsService {
         });
     }
 
-    async getExtensionById(id: string): Promise<any> {
+    async getExtensionById(id: string): Promise<Extension | null> {
         return this.prisma.extension.findUnique({
             include: {
                 author: true,
