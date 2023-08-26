@@ -8,10 +8,9 @@ type Extension struct {
 	Description string    `json:"description"`
 	Author      User      `json:"author" gorm:"foreignKey:AuthorRefer"`
 	AuthorRefer string
-	Versions    Version `json:"version"`
-	VersionRefer
-	Downloads uint   `json:"downloads"`
-	BannerUrl string `json:"bannerUrl"`
-	Verified  bool   `json:"verified"`
-	Source    string `json:"source"`
+	Versions    []Version `json:"version"`
+	Downloads   uint      `json:"downloads"`
+	BannerUrl   string    `json:"bannerUrl"`
+	Verified    bool      `json:"verified"`
+	Source      string    `json:"source"`
 }

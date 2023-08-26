@@ -6,6 +6,6 @@ type Version struct {
 	Active       string
 	Link         string
 	Checksum     string
-	Extension    Extension ``
+	Extension    Extension `gorm:"foreignKey:ExtensionRef"`
 	ExtensionRef string
 }
