@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env
+    volumes:
+      - db:/var/lib/postgresql/data
+  api:
+    env_file:
+      - .env
+    container_name: botson_api
+    build:
+      context: .
+      dockerfile: 'Dockerfile'
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/app
+volumes:
+  db:
+    driver: local

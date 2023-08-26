@@ -11,15 +11,17 @@ import (
 
 func main() {
 	err := godotenv.Load()
+
 	if err != nil {
 		log.Fatalf("Couldn't load .env file.")
 	}
 
-	db, err := db.NewConnection(&db.Config{
+	db.ConnectDB(&db.Config{
 		Host:     os.Getenv("HOST"),
 		Port:     os.Getenv("PORT"),
-		Password: os.Getenv("PWD"),
-		DBName:   os.Getenv("DBNAME"),
+		Password: os.Getenv("POSTGRES_PASSWORD"),
+		DBName:   os.Getenv("POSTGRES_DB"),
+		User:     os.Getenv("POSTGRES_USER"),
 	})
 
 	app := fiber.New()

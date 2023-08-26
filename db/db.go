@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/BotsOn-app/api/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -12,6 +13,7 @@ type Config struct {
 	Host     string
 	Port     string
 	Password string
+	User     string
 	DBName   string
 }
 
@@ -22,14 +24,17 @@ type DBInstance struct {
 var Database DBInstance
 
 func ConnectDB(config *Config) {
-	dsn := fmt.Sprintf("Connected to PostgreSQL DB \"%s\" at %s:%s with password %s", config.DBName, config.Host, config.Port, config.Password)
+
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable", config.Host, config.User, config.Password, config.DBName, config.Port)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Fatalf("Failed to connect to the database...\n", err.Error())
+		log.Fatal("Failed to connect to the database...\n", err.Error())
 	}
 
-	log.Println("Connected to DB!")
+	log.Printf("Connected to PostgreSQL DB \"%s\" at %s:%s with password %s\n", config.DBName, config.Host, config.Port, config.Password)
 	log.Println("Running Migrations...")
+	db.AutoMigrate(&models.User{}, &models.Extension{}, &models.Version{})
+
 	Database = DBInstance{DB: db}
 }
