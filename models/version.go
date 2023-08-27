@@ -1,11 +1,13 @@
 package models
 
+import "gorm.io/gorm"
+
 type Version struct {
-	Semver       string
-	Commit       string
-	Active       string
-	Link         string
-	Checksum     string
-	Extension    Extension `gorm:"foreignKey:ExtensionRef"`
-	ExtensionRef string
+	gorm.Model
+	Semver      string
+	Commit      string
+	Active      string
+	Link        string
+	Checksum    string
+	ExtensionID uint
 }

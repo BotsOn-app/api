@@ -1,13 +1,14 @@
 package models
 
-import "github.com/google/uuid"
+import (
+	"gorm.io/gorm"
+)
 
 type Extension struct {
-	ID          uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
-	Name        string    `json:"name"`
-	Description string    `json:"description"`
-	Author      User      `json:"author" gorm:"foreignKey:AuthorRefer"`
-	AuthorRefer string
+	gorm.Model
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	UserID      uint
 	Versions    []Version `json:"version"`
 	Downloads   uint      `json:"downloads"`
 	BannerUrl   string    `json:"bannerUrl"`
