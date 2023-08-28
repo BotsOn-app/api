@@ -9,6 +9,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var DB *gorm.DB
+
 type Config struct {
 	Host     string
 	Port     string
@@ -16,12 +18,6 @@ type Config struct {
 	User     string
 	DBName   string
 }
-
-type DBInstance struct {
-	DB *gorm.DB
-}
-
-var Database DBInstance
 
 func ConnectDB(config *Config) {
 
@@ -36,5 +32,5 @@ func ConnectDB(config *Config) {
 	log.Println("Running Migrations...")
 	db.AutoMigrate(&models.User{}, &models.Extension{}, &models.Version{})
 
-	Database = DBInstance{DB: db}
+	DB = db
 }

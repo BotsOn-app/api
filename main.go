@@ -5,9 +5,16 @@ import (
 	"os"
 
 	"github.com/BotsOn-app/api/db"
+	"github.com/BotsOn-app/api/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/joho/godotenv"
 )
+
+func SetupRoutes(app *fiber.App) {
+	app.Get("/users", routes.GetAllUsers)
+	app.Post("/users", routes.CreateUser)
+
+}
 
 func main() {
 	err := godotenv.Load()
@@ -25,6 +32,11 @@ func main() {
 	})
 
 	app := fiber.New()
+	app.Use("/api", func(ctx *fiber.Ctx) error {
+		return ctx.Next()
+	})
+
+	SetupRoutes(app)
 
 	app.Listen(":8000")
 }
