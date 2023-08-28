@@ -10,10 +10,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func SetupRoutes(app *fiber.App) {
-	app.Get("/users", routes.GetAllUsers)
-	app.Post("/users", routes.CreateUser)
-
+func SetupRoutes(api fiber.Router) {
+	api.Get("/users", routes.GetAllUsers)
+	api.Post("/users", routes.CreateUser)
+	api.Get("/users/:id", routes.GetUser)
 }
 
 func main() {
@@ -32,11 +32,9 @@ func main() {
 	})
 
 	app := fiber.New()
-	app.Use("/api", func(ctx *fiber.Ctx) error {
-		return ctx.Next()
+	app.Route("/api", func(api fiber.Router) {
+		SetupRoutes(api)
 	})
-
-	SetupRoutes(app)
 
 	app.Listen(":8000")
 }

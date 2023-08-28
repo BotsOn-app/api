@@ -15,6 +15,13 @@ func CreateUser(ctx *fiber.Ctx) error {
 	return ctx.JSON(&user)
 }
 
+func GetUser(ctx *fiber.Ctx) error {
+	id := ctx.Params("id")
+	var user models.User
+	db.DB.Find(&user, id)
+	return ctx.JSON(&user)
+}
+
 func GetAllUsers(ctx *fiber.Ctx) error {
 	var users []models.User
 	db.DB.Find(&users)
